@@ -1,7 +1,6 @@
 package com.traveleasy.fullstackbackend.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Card {
