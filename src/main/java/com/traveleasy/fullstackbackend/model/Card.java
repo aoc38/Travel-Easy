@@ -1,8 +1,6 @@
 package com.traveleasy.fullstackbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -14,6 +12,9 @@ public class Card {
     private String expiryDate;
     private int cvv;
     private boolean isDefault;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Long getCardId() {
         return cardId;
@@ -53,5 +54,13 @@ public class Card {
 
     public void setDefault(boolean aDefault) {
         isDefault = aDefault;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
