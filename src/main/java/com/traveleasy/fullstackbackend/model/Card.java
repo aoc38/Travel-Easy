@@ -10,6 +10,13 @@ public class Card {
     private Long cardNumber;
     private String expiryDate;
     private int cvv;
+    @Enumerated(EnumType.STRING)
+    private Enum cardType;
+    private String cardOwnerName;
+
+    public String getCardOwnerName() {
+        return cardOwnerName;
+    }
     private boolean isDefault;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -45,6 +52,18 @@ public class Card {
 
     public void setCvv(int cvv) {
         this.cvv = cvv;
+    }
+
+    public Enum getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(Enum cardType) {
+        this.cardType = cardType;
+    }
+
+    public void setCardOwnerName(String cardOwnerName) {
+        this.cardOwnerName = cardOwnerName;
     }
 
     public boolean isDefault() {

@@ -14,6 +14,15 @@ public class User {
     private String firstName;
     private String middleName;
     private String lastName;
+    //mile history
+    private int milesEarned;
+    private int milesRedeemed;
+
+    private Rating userRating;
+
+    //booking history
+
+
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Card> cards;
