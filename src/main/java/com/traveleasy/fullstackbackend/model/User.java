@@ -14,20 +14,19 @@ public class User {
     private String firstName;
     private String middleName;
     private String lastName;
-    //mile history
-    private int milesEarned;
-    private int milesRedeemed;
-
-    private Rating userRating;
-
-    //booking history
-
-
-
+    private String mailingAddress;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Card> cards;
 
-    private String mailingAddress;
+    //mile history
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserMiles userMiles;
+
+    //rating info
+    @OneToOne(cascade = CascadeType.ALL)
+    private Rating userRating;
+
+    //booking history -- yet to create
 
     public Long getId() {
         return id;

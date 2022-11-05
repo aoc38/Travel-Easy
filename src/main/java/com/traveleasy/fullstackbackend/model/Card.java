@@ -11,7 +11,7 @@ public class Card {
     private String expiryDate;
     private int cvv;
     @Enumerated(EnumType.STRING)
-    private Enum cardType;
+    private CardType cardType;
     private String cardOwnerName;
 
     public String getCardOwnerName() {
@@ -54,11 +54,15 @@ public class Card {
         this.cvv = cvv;
     }
 
-    public Enum getCardType() {
+    public CardType getCardType() {
         return cardType;
     }
 
-    public void setCardType(Enum cardType) {
+    public Card() {
+        super();
+    }
+
+    public void setCardType(CardType cardType) {
         this.cardType = cardType;
     }
 
