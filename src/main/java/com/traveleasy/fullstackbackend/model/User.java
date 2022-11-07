@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue
@@ -98,5 +99,22 @@ public class User {
 
     public void setMailingAddress(String mailingAddress) {
         this.mailingAddress = mailingAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mailingAddress='" + mailingAddress + '\'' +
+                ", cards=" + cards +
+                ", userMiles=" + userMiles +
+                ", userRating=" + userRating +
+                '}';
     }
 }

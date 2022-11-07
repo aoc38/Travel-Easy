@@ -22,6 +22,16 @@ public class Card {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Card(Long cardNumber, String expiryDate, int cvv, CardType cardType, String cardOwnerName, boolean isDefault, User user) {
+        this.cardNumber = cardNumber;
+        this.expiryDate = expiryDate;
+        this.cvv = cvv;
+        this.cardType = cardType;
+        this.cardOwnerName = cardOwnerName;
+        this.isDefault = isDefault;
+        this.user = user;
+    }
+
     public Long getCardId() {
         return cardId;
     }
@@ -84,5 +94,19 @@ public class Card {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "cardId=" + cardId +
+                ", cardNumber=" + cardNumber +
+                ", expiryDate='" + expiryDate + '\'' +
+                ", cvv=" + cvv +
+                ", cardType=" + cardType +
+                ", cardOwnerName='" + cardOwnerName + '\'' +
+                ", isDefault=" + isDefault +
+                ", user=" + user +
+                '}';
     }
 }
