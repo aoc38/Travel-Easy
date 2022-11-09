@@ -27,8 +27,14 @@ public class UserController {
         if (newUser.getCards() != null) {
             Card userCardInfo = newUser.getCards().get(0);
             userCardInfo.setCardType(CardType.VISA);
-            Card cardData = new Card(userCardInfo.getCardNumber(),userCardInfo.getExpiryDate(),userCardInfo.getCvv(),
-                    userCardInfo.getCardType(),userCardInfo.getCardOwnerName(),true,userData);
+            Card cardData = Card.builder().cardNumber(userCardInfo.getCardNumber())
+                    .expiryDate(userCardInfo.getExpiryDate())
+                    .cvv(userCardInfo.getCvv())
+                    .cardType(userCardInfo.getCardType())
+                    .cardOwnerName(userCardInfo.getCardOwnerName())
+                    .isDefault(true)
+                    .user(userData)
+                    .build();
             cardRepository.save(cardData);
             System.out.println(cardData);
         }

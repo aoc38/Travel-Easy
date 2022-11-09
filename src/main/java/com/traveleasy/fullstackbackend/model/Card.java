@@ -9,6 +9,7 @@ import javax.persistence.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Card {
     @Id
     @GeneratedValue
