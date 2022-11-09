@@ -10,15 +10,15 @@ import javax.persistence.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Rating {
-
-    @Id
+public class BookingHistory {
     @GeneratedValue
-    private int ratingId;
-    private int ratingNumber;
-    private String ratingComments;
-    @OneToOne
+    @Id
+    private int bookingId;
+    private int paymentId;
+    private Flight flightInfo;
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User userInfo;
+    private Hotel hotelInfo;
 
 }
