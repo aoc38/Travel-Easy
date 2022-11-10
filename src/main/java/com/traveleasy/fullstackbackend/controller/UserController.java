@@ -1,7 +1,6 @@
 package com.traveleasy.fullstackbackend.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import com.traveleasy.fullstackbackend.exception.UserNotFoundException;
+import com.traveleasy.fullstackbackend.exception.NotFoundException;
 import com.traveleasy.fullstackbackend.model.Card;
 import com.traveleasy.fullstackbackend.model.CardType;
 import com.traveleasy.fullstackbackend.model.User;
@@ -15,7 +14,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("http://localhost:3000/")
 public class UserController {
-
+    public static final String USER = "user";
     @Autowired
     private UserRepository userRepository;
     private CardRepository cardRepository;
@@ -48,7 +47,7 @@ public class UserController {
     @GetMapping("/user/{id}")
     User getUserById(@PathVariable Long id){
         return userRepository.findById(id)
-                .orElseThrow(()->new UserNotFoundException(id));
+                .orElseThrow(()->new NotFoundException(id,USER));
     }
 
     @PutMapping("/user/{id}")
@@ -59,12 +58,12 @@ public class UserController {
                     user.setEmail(newUser.getEmail());
                     user.setFirstName(newUser.getFirstName());
                     return userRepository.save(user);
-                }).orElseThrow(()->new UserNotFoundException(id));
+                }).orElseThrow(()->new NotFoundException(id,USER));
     }
     @DeleteMapping("/user/{id}")
     String deleteUser(@PathVariable long id){
         if(!userRepository.existsById(id)){
-            throw new UserNotFoundException(id);
+            throw new NotFoundException(id,USER);
         }
         userRepository.deleteById(id);
         return "User with "+id+" has been deleted successfully";

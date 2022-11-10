@@ -22,7 +22,7 @@ public class Hotel {
     private Date checkInDate;
     private Date checkOutDate;
     private int roomsCount;
-    private int travelerCount;
+    private int guestsCount;
     private int roomPrice;
 
 

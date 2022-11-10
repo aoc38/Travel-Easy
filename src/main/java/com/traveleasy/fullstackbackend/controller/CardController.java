@@ -18,7 +18,7 @@ public class CardController {
     private CardRepository cardRepository;
 
     @PostMapping("/card")
-    Card newCard(@RequestBody Card newCard){
+    Card addCard(@RequestBody Card newCard){
         return  cardRepository.save(newCard);
     }
     @GetMapping("/cards")
