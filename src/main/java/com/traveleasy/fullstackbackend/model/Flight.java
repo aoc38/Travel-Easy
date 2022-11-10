@@ -17,7 +17,7 @@ public class Flight {
 
     @Id
     @GeneratedValue
-    private Long flightId;
+    private Long id;
     private String airlineName;
     private String source;
     private String destination;
@@ -25,6 +25,7 @@ public class Flight {
     private Date returnDate;
     private TripType tripType;
     private int price;
+    private int miles;
     private String flightNumber;
 
 }
