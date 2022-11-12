@@ -1,0 +1,12 @@
+2022-11-12 16:37:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found (this database is empty); SQL statement:
+INSERT INTO USERS (ID, EMAIL, FIRST_NAME, LAST_NAME, MIDDLE_NAME, MAILING_ADDRESS, USERNAME, PASSWORD) VALUES (1, 'bhavaninbl061@gmail.com', 'Bhavani', 'Naralasetty', '', 'San Macros, Texas', 'bhavaninbl', 'strongPassword') [42104-214]
+2022-11-12 16:38:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found (this database is empty); SQL statement:
+INSERT INTO USERS (ID, EMAIL, FIRST_NAME, LAST_NAME, MIDDLE_NAME, MAILING_ADDRESS, USERNAME, PASSWORD) VALUES (1, 'bhavaninbl061@gmail.com', 'Bhavani', 'Naralasetty', '', 'San Macros, Texas', 'bhavaninbl', 'strongPassword') [42104-214]
+2022-11-12 16:38:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERS" not found (this database is empty); SQL statement:
+INSERT INTO USERS (ID, EMAIL, FIRST_NAME, LAST_NAME, MIDDLE_NAME, MAILING_ADDRESS, USERNAME, PASSWORD) VALUES (1, 'bhavaninbl061@gmail.com', 'Bhavani', 'Naralasetty', '', 'San Macros, Texas', 'bhavaninbl', 'strongPassword') [42104-214]
+2022-11-12 16:45:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "MERGE INTO USERS KEY(ID) ([*]ID, EMAIL, FIRST_NAME, LAST_NAME, MIDDLE_NAME, MAILING_ADDRESS, USERNAME, PASSWORD) VALUES (1, 'bhavaninbl061@gmail.com', 'Bhavani', 'Naralasetty', '', 'San Macros, Texas', 'bhavaninbl', 'strongPassword')"; expected "(, SELECT, TABLE, VALUES"; SQL statement:
+MERGE INTO USERS KEY(ID) (ID, EMAIL, FIRST_NAME, LAST_NAME, MIDDLE_NAME, MAILING_ADDRESS, USERNAME, PASSWORD) VALUES (1, 'bhavaninbl061@gmail.com', 'Bhavani', 'Naralasetty', '', 'San Macros, Texas', 'bhavaninbl', 'strongPassword') [42001-214]
