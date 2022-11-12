@@ -1,0 +1,2 @@
+MERGE INTO USERS  (ID, EMAIL, FIRST_NAME, LAST_NAME, MIDDLE_NAME, MAILING_ADDRESS,  USERNAME, PASSWORD)   KEY(ID)  VALUES
+(1, 'bhavaninbl061@gmail.com', 'Bhavani', 'Naralasetty', '', 'San Macros, Texas', 'bhavaninbl', 'strongPassword');
