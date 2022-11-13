@@ -1,7 +1,6 @@
 package com.traveleasy.fullstackbackend.model;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity

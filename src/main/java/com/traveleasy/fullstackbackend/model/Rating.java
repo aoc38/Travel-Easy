@@ -10,11 +10,13 @@ import javax.persistence.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@NonNull
 public class Rating {
 
     @Id
     @GeneratedValue
-    private int ratingId;
+    private Long id;
     private int ratingNumber;
     private String ratingComments;
     @OneToOne
