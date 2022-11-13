@@ -30,9 +30,15 @@ public class CardController {
     }
     @PutMapping("/card/{id}")
     Card editCard(@PathVariable Long id, Card editCardData){
-        Card existingCard = cardRepository.findById(id).orElseThrow(()-> new NotFoundException(id,CARD));
-        //save edited card info
-        return cardRepository.save(existingCard);
+        return cardRepository.findById(id).map(cardata -> {
+           cardata.setCardType(editCardData.getCardType());
+           cardata.setCardNumber(editCardData.getCardNumber());
+           cardata.setCvv(editCardData.getCvv());
+           cardata.setCardOwnerName(editCardData.getCardOwnerName());
+           cardata.setExpiryDate(editCardData.getExpiryDate());
+           cardata.setDefault(editCardData.isDefault());
+            return cardRepository.save(cardata);
+        }).orElseThrow(() -> new NotFoundException(id, CARD));
     }
     @DeleteMapping("/card/{id}")
     private String deleteCard(@PathVariable Long id){

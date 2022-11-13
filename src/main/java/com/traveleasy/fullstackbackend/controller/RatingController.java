@@ -19,32 +19,31 @@ public class RatingController {
 
 
     @GetMapping("/allratings")
-    private List<Rating> getAllRatings(){
+    private List<Rating> getAllRatings() {
         return ratingRepository.findAll();
     }
 
     @GetMapping("/rating/{id}")
-    private Rating getRating(@PathVariable Long id){
-        return ratingRepository.findById(id)
-                .orElseThrow(()->new NotFoundException(id,RATING));
+    private Rating getRating(@PathVariable Long id) {
+        return ratingRepository.findById(id).orElseThrow(() -> new NotFoundException(id, RATING));
     }
 
     @PostMapping("/addrating")
-    private Rating addRating(Rating newRating){
+    private Rating addRating(Rating newRating) {
         return ratingRepository.save(newRating);
     }
 
     @PutMapping("/editrating/{id}")
-    private Rating editRating(Rating newRating){
-        //Optional<Rating> userRating = ratingRepository.findById(newRating.getId());
-        Rating editedRating = Rating.builder()
-                .ratingComments(newRating.getRatingComments())
-                .ratingNumber(newRating.getRatingNumber()).build();
-        return ratingRepository.save(editedRating);
+    private Rating editRating(@PathVariable Long id, Rating newRating) {
+        return ratingRepository.findById(id).map(userrating -> {
+            userrating.setRatingNumber(newRating.getRatingNumber());
+            userrating.setRatingComments(newRating.getRatingComments());
+            return ratingRepository.save(userrating);
+        }).orElseThrow(() -> new NotFoundException(id, RATING));
     }
 
     @DeleteMapping("/deleterating/{id}")
-    private void deleteRating(@PathVariable Long id){
+    private void deleteRating(@PathVariable Long id) {
         ratingRepository.deleteById(id);
     }
 }

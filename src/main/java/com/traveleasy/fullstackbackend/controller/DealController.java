@@ -22,9 +22,11 @@ public class DealController {
 
     @PutMapping("/deal/{id}")
     private Deal editDeal(Deal editDeal,@PathVariable Long id){
-        Deal existingDeal = dealRepository.findById(id).orElseThrow(() -> new NotFoundException(id,DEAL));
-        //add edited data here
-       return dealRepository.save(existingDeal);
+        return dealRepository.findById(id).map(dealdata -> {
+            dealdata.setDealMiles(editDeal.getDealMiles());
+            dealdata.setDealPrice(editDeal.getDealPrice());
+            return dealRepository.save(dealdata);
+        }).orElseThrow(() -> new NotFoundException(id, DEAL));
     }
 
     @GetMapping("/deals")
