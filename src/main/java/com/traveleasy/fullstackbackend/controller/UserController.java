@@ -20,7 +20,7 @@ public class UserController {
     private CardRepository cardRepository;
 
     @PostMapping("/user")
-    User newUser(@RequestBody User newUser){
+    User addUser(@RequestBody User newUser){
         User userData = userRepository.save(newUser);
         newUser.toString();
         if (newUser.getCards() != null) {
