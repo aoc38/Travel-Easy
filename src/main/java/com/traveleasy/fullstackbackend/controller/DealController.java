@@ -25,6 +25,7 @@ public class DealController {
         return dealRepository.findById(id).map(dealdata -> {
             dealdata.setDealMiles(editDeal.getDealMiles());
             dealdata.setDealPrice(editDeal.getDealPrice());
+            dealdata.setDealName(editDeal.getDealName());
             return dealRepository.save(dealdata);
         }).orElseThrow(() -> new NotFoundException(id, DEAL));
     }

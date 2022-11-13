@@ -19,6 +19,7 @@ public class Deal {
     @Id
     @GeneratedValue
     private Long id;
+    private String dealName;
     private String source;
     private String destination;
     private Date from;
