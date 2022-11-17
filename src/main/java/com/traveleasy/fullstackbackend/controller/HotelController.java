@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 public class HotelController {
     public static final String HOTEL = "hotel";
     @Autowired
     private HotelRepository HotelRepository;
-    @PostMapping("/Hotel")
+    @PostMapping("/hotel")
     Hotel addHotel(@RequestBody Hotel newHotel){
         return  HotelRepository.save(newHotel);
     }
 
     //To edit Hotel information need to edit this according what to change in Hotel data and when to change
-    @PutMapping("/Hotel/{id}")
+    @PutMapping("/hotel/{id}")
     Hotel updateHotel(@RequestBody Hotel newHotel, @PathVariable Long id){
         return HotelRepository.findById(id)
                 .map(hotel -> {
@@ -31,17 +32,17 @@ public class HotelController {
                     return HotelRepository.save(hotel);
                 }).orElseThrow(()->new NotFoundException(id,HOTEL));
     }
-    @GetMapping("/Hotels")
+    @GetMapping("/hotels")
     List<Hotel> getAllHotels(){
         return HotelRepository.findAll();
     }
-    @GetMapping("/Hotel/{id}")
+    @GetMapping("/hotel/{id}")
     Hotel getHotelById(@PathVariable Long id){
         return HotelRepository.findById(id)
                 .orElseThrow(()->new NotFoundException(id,HOTEL));
     }
 
-    @DeleteMapping("/Hotel/{id}")
+    @DeleteMapping("/hotel/{id}")
     String deleteHotelById(@PathVariable long id){
         if(!HotelRepository.existsById(id)){
             throw new NotFoundException(id,HOTEL);

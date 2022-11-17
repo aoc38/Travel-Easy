@@ -14,10 +14,11 @@ public class BookingHistory {
     @Id
     private int bookingId;
     private int paymentId;
-    private Flight flightInfo;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User userInfo;
-    private Hotel hotelInfo;
+
+//    private Flight flightInfo;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User userInfo;
+//    private Hotel hotelInfo;
 
 }

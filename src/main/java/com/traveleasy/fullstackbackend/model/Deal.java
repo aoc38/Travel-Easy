@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -15,15 +16,14 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class Deal {
-
     @Id
     @GeneratedValue
     private Long id;
     private String dealName;
     private String source;
     private String destination;
-    private Date from;
-    private Date to;
+    private Timestamp travelData;
+    private Timestamp returnDate;
     private int lowPrice;
     private int highPrice;
     private int dealPrice;

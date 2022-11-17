@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class UserMiles {
     @Id
     @GeneratedValue
-    private int milesId;
+    private int id;
     private int milesEarned;
     private int milesRedeemed;
     private int milesRemaining;

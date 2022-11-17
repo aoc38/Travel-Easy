@@ -37,6 +37,6 @@ public class User {
     private Rating userRating;
 
     //booking history -- yet to create
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<BookingHistory> bookingHistory;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<BookingHistory> bookingHistory;
 }

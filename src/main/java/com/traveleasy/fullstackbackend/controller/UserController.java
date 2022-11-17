@@ -22,7 +22,7 @@ public class UserController {
     @PostMapping("/user")
     User addUser(@RequestBody User newUser){
         User userData = userRepository.save(newUser);
-        newUser.toString();
+       System.out.println(newUser.toString());
         if (newUser.getCards() != null) {
             Card userCardInfo = newUser.getCards().get(0);
             userCardInfo.setCardType(CardType.VISA);
@@ -35,7 +35,7 @@ public class UserController {
                     .user(userData)
                     .build();
             cardRepository.save(cardData);
-            System.out.println(cardData);
+            System.out.println(cardData.toString());
         }
         return userData;
     }
