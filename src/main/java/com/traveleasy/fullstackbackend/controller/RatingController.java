@@ -28,7 +28,7 @@ public class RatingController {
         return ratingRepository.findById(id).orElseThrow(() -> new NotFoundException(id, RATING));
     }
 
-    @PostMapping("/addrating")
+    @PostMapping("/rating")
     private Rating addRating(Rating newRating) {
         return ratingRepository.save(newRating);
     }

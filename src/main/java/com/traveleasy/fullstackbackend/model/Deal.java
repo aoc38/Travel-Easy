@@ -22,10 +22,10 @@ public class Deal {
     private String dealName;
     private String source;
     private String destination;
-    private Timestamp travelData;
+    private Timestamp travelDate;
     private Timestamp returnDate;
-    private int lowPrice;
-    private int highPrice;
+    private int minPrice;
+    private int maxPrice;
     private int dealPrice;
     private int dealMiles;
 
