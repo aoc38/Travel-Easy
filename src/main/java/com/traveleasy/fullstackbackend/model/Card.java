@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Builder
 public class Card {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardId;
     private Long cardNumber;
     private String expiryDate;
