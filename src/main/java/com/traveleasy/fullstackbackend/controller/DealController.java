@@ -27,7 +27,7 @@ public class DealController {
             dealdata.setDealPrice(editDeal.getDealPrice());
             dealdata.setDealName(editDeal.getDealName());
             return dealRepository.save(dealdata);
-        }).orElseThrow(() -> new NotFoundException(id, DEAL));
+        }).orElseThrow(() -> new NotFoundException("",id, DEAL));
     }
 
     @GetMapping("/deals")
@@ -37,13 +37,13 @@ public class DealController {
     @GetMapping("/deal/{id}")
     private Deal getDeal(@PathVariable Long id){
         return dealRepository.findById(id)
-                .orElseThrow(()-> new NotFoundException(id,DEAL));
+                .orElseThrow(()-> new NotFoundException("",id,DEAL));
     }
 
     @DeleteMapping("/deal/{id}")
     private String deleteDeal(@PathVariable Long id){
         if(!dealRepository.existsById(id)){
-            throw new NotFoundException(id,DEAL);
+            throw new NotFoundException("",id,DEAL);
         }
         dealRepository.deleteById(id);
         return "Deal with "+id+" has been deleted successfully";

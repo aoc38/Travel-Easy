@@ -28,7 +28,7 @@ public class FlightController {
     Flight addFlight(@RequestBody FlightDto newBooking, @PathVariable Long id){
 
         User userinfo = userRepository.findById(id)
-                .orElseThrow(()->new NotFoundException(id,USER));
+                .orElseThrow(()->new NotFoundException("",id,USER));
         //save flight and passenger info in db
         System.out.println("USER _INFO " +userinfo);
         System.out.println("DATA FROM API " +newBooking.getPassengerData().getList());
@@ -75,13 +75,13 @@ public class FlightController {
     @GetMapping("/flight/{id}")
     Flight getFlightById(@PathVariable Long id){
         return flightRepository.findById(id)
-                .orElseThrow(()->new NotFoundException(id,FLIGHT));
+                .orElseThrow(()->new NotFoundException("",id,FLIGHT));
     }
 
     @DeleteMapping("/flight/{id}")
     String deleteFlightById(@PathVariable long id){
         if(!flightRepository.existsById(id)){
-            throw new NotFoundException(id,FLIGHT);
+            throw new NotFoundException("",id,FLIGHT);
         }
         flightRepository.deleteById(id);
         return "Flight with "+id+" has been deleted successfully";

@@ -25,7 +25,7 @@ public class RatingController {
 
     @GetMapping("/rating/{id}")
     private Rating getRating(@PathVariable Long id) {
-        return ratingRepository.findById(id).orElseThrow(() -> new NotFoundException(id, RATING));
+        return ratingRepository.findById(id).orElseThrow(() -> new NotFoundException("",id, RATING));
     }
 
     @PostMapping("/rating")
@@ -39,7 +39,7 @@ public class RatingController {
             userrating.setRatingNumber(newRating.getRatingNumber());
             userrating.setRatingComments(newRating.getRatingComments());
             return ratingRepository.save(userrating);
-        }).orElseThrow(() -> new NotFoundException(id, RATING));
+        }).orElseThrow(() -> new NotFoundException("",id, RATING));
     }
 
     @DeleteMapping("/deleterating/{id}")

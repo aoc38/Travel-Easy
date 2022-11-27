@@ -30,7 +30,7 @@ public class HotelController {
                    hotel.setRoomsCount(newHotel.getRoomsCount());
                    hotel.setGuestsCount(newHotel.getGuestsCount());
                     return HotelRepository.save(hotel);
-                }).orElseThrow(()->new NotFoundException(id,HOTEL));
+                }).orElseThrow(()->new NotFoundException("",id,HOTEL));
     }
     @GetMapping("/hotels")
     List<Hotel> getAllHotels(){
@@ -39,13 +39,13 @@ public class HotelController {
     @GetMapping("/hotel/{id}")
     Hotel getHotelById(@PathVariable Long id){
         return HotelRepository.findById(id)
-                .orElseThrow(()->new NotFoundException(id,HOTEL));
+                .orElseThrow(()->new NotFoundException("",id,HOTEL));
     }
 
     @DeleteMapping("/hotel/{id}")
     String deleteHotelById(@PathVariable long id){
         if(!HotelRepository.existsById(id)){
-            throw new NotFoundException(id,HOTEL);
+            throw new NotFoundException("",id,HOTEL);
         }
         HotelRepository.deleteById(id);
         return "Hotel with "+id+" has been deleted successfully";
