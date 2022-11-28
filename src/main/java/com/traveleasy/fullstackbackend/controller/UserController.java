@@ -86,12 +86,12 @@ public class UserController {
         User checkUserName = userRepository.findByUsername(loginUserDto.getUsername());
         if (user == null){
             if(checkUserName == null){
-                return new NotFoundException("Please enter the correct username ",0L,USER);
+                return new NotFoundException("Please check the username entered ",0L,USER);
             } else if(checkUserName !=null
                     && (loginUserDto.getPassword() !=null)
                     && !checkUserName.getPassword().equals(loginUserDto.getPassword())
             ){
-                return new NotFoundException("Please enter the correct password for username " +checkUserName.getUsername(),checkUserName.getId(),USER);
+                return new NotFoundException("Please check the password entered for username " +checkUserName.getUsername(),checkUserName.getId(),USER);
             } else {
                 return new NotFoundException("User is not registered",0L,USER);
             }
