@@ -27,6 +27,7 @@ public class Flight {
     private FlightType flightType;//DOMESTIC OR INTERNATIONAL
     private int price;
     private int miles;
+    private String flightNumber;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Passenger> passengersList;
@@ -34,7 +35,5 @@ public class Flight {
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
-//    private int miles;
-    private String flightNumber;
 
 }
