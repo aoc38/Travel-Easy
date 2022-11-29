@@ -20,10 +20,8 @@ public class Card {
     @Enumerated(EnumType.STRING)
     private CardType cardType;
     private String cardOwnerName;
-    public String getCardOwnerName() {
-        return cardOwnerName;
-    }
     private boolean isDefault;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

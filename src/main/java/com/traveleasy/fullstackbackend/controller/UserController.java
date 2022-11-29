@@ -18,6 +18,12 @@ import java.util.List;
 @CrossOrigin("http://localhost:3000/")
 public class UserController {
     public static final String USER = "user";
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -70,17 +76,25 @@ public class UserController {
     @GetMapping("/user/{id}")
     User getUserById(@PathVariable Long id){
         return userRepository.findById(id)
-                .orElseThrow(()->new NotFoundException(id,USER));
+                .orElseThrow(()->new NotFoundException("",id,USER));
     }
 
     @PostMapping("/userlogin")
-    User loginCheck(@RequestBody LoginUserDto loginUserDto){
+    Object loginCheck(@RequestBody LoginUserDto loginUserDto){
     //check user is present for that login
         User user = userRepository.findByUsernameAndPassword(loginUserDto.getUsername(),loginUserDto.getPassword());
+        User checkUserName = userRepository.findByUsername(loginUserDto.getUsername());
         if (user == null){
-            System.out.println("User is not found ");
-        } else {
-            System.out.println("User is found with that email and pwd");
+            if(checkUserName == null){
+                return new NotFoundException("Please check the username entered ",0L,USER);
+            } else if(checkUserName !=null
+                    && (loginUserDto.getPassword() !=null)
+                    && !checkUserName.getPassword().equals(loginUserDto.getPassword())
+            ){
+                return new NotFoundException("Please check the password entered for username " +checkUserName.getUsername(),checkUserName.getId(),USER);
+            } else {
+                return new NotFoundException("User is not registered",0L,USER);
+            }
         }
         return  user;
     }
@@ -93,12 +107,12 @@ public class UserController {
                     user.setEmail(newUser.getEmail());
                     user.setFirstName(newUser.getFirstName());
                     return userRepository.save(user);
-                }).orElseThrow(()->new NotFoundException(id,USER));
+                }).orElseThrow(()->new NotFoundException("",id,USER));
     }
     @DeleteMapping("/user/{id}")
     String deleteUser(@PathVariable long id){
         if(!userRepository.existsById(id)){
-            throw new NotFoundException(id,USER);
+            throw new NotFoundException("",id,USER);
         }
         userRepository.deleteById(id);
         return "User with "+id+" has been deleted successfully";

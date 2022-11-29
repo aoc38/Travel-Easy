@@ -21,7 +21,7 @@ public class FlightStatusController {
     @GetMapping("/flightstatus/{id}")
     FlightStatus getFlightStatusById(@PathVariable Long id){
         return flightStatusRepository.findById(id)
-                .orElseThrow(()->new NotFoundException(id,FLIGHT_STATUS));
+                .orElseThrow(()->new NotFoundException("",id,FLIGHT_STATUS));
     }
     @PostMapping("flightstatus")
     FlightStatus addFlightStatus(FlightStatus newflightStatus){
@@ -31,7 +31,7 @@ public class FlightStatusController {
     @DeleteMapping("/flightstatus/{id}")
     String deleteFlightStatus(@PathVariable Long id){
         if(!flightStatusRepository.existsById(id)){
-            throw new NotFoundException(id, FLIGHT_STATUS);
+            throw new NotFoundException("",id, FLIGHT_STATUS);
         }
         flightStatusRepository.deleteById(id);
         return "Flight Status with "+id+" has been deleted successfully";
@@ -45,7 +45,7 @@ public class FlightStatusController {
                     c_flight_status.setAirlineName(newStatus.getAirlineName());
                     c_flight_status.setDepartureDate(newStatus.getDepartureDate());
                     return flightStatusRepository.save(c_flight_status);
-                }).orElseThrow(()->new NotFoundException(id,FLIGHT_STATUS));
+                }).orElseThrow(()->new NotFoundException("",id,FLIGHT_STATUS));
     }
 
 }

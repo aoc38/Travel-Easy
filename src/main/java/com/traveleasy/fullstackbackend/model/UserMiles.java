@@ -14,9 +14,9 @@ public class UserMiles {
     @Id
     @GeneratedValue
     private int id;
-    private int milesEarned;
-    private int milesRedeemed;
-    private int milesRemaining;
+    private int milesEarned = 0;
+    private int milesRedeemed = 0;
+    private int milesRemaining = 0;
 
     @OneToOne
     @JoinColumn(name = "user_id")

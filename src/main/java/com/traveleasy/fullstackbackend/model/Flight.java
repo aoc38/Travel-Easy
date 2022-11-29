@@ -2,10 +2,9 @@ package com.traveleasy.fullstackbackend.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,14 +12,15 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Flight {
 
     @Id
     @GeneratedValue
     private Long id;
-    private String airlineName;
-    private String source;
-    private String destination;
+    private String airline;
+    private String departureCityName;
+    private String arrivalCityName;
     private Date departureDate;
     private Date returnDate;
     private TripType tripType;//ONEWAY OR ROUND TRIP
@@ -28,5 +28,12 @@ public class Flight {
     private int price;
     private int miles;
     private String flightNumber;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Passenger> passengersList;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
+
 
 }

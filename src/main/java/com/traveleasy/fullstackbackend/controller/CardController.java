@@ -26,7 +26,7 @@ public class CardController {
     }
     @GetMapping("/card/{id}")
     Card getCard(@PathVariable Long id, Card editCardData) {
-        return cardRepository.findById(id).orElseThrow(() -> new NotFoundException(id, CARD));
+        return cardRepository.findById(id).orElseThrow(() -> new NotFoundException("",id, CARD));
     }
     @PutMapping("/card/{id}")
     Card editCard(@PathVariable Long id, Card editCardData){
@@ -38,12 +38,12 @@ public class CardController {
            cardata.setExpiryDate(editCardData.getExpiryDate());
            cardata.setDefault(editCardData.isDefault());
             return cardRepository.save(cardata);
-        }).orElseThrow(() -> new NotFoundException(id, CARD));
+        }).orElseThrow(() -> new NotFoundException("",id, CARD));
     }
     @DeleteMapping("/card/{id}")
     private String deleteCard(@PathVariable Long id){
         if(!cardRepository.existsById(id)){
-            throw new NotFoundException(id,CARD);
+            throw new NotFoundException("",id,CARD);
         }
         cardRepository.deleteById(id);
         return "Card with "+id+" has been deleted successfully";
