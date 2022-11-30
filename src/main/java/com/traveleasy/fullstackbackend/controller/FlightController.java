@@ -30,6 +30,57 @@ public class FlightController {
     @Autowired
     private UserMilesRepository userMilesRepository;
 
+    @PostMapping("/bookflightmiles/{id}")
+    Flight bookFlightwithMiles(@RequestBody FlightDto newBooking, @PathVariable Long id) {
+
+        User userinfo = userRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("",id,USER));
+        //save flight and passenger info in db
+        System.out.println("USER _INFO with miles booking " +userinfo);
+        System.out.println("DATA FROM API with miles booking " +newBooking.getPassengerData().getList());
+        List<Passenger> passengerList = new ArrayList<>();
+        passengerList.addAll(newBooking.getPassengerData().getList());
+        System.out.println("Passenger Data in save Flight with miles booking : "+passengerList.toString());
+        Flight data = newBooking.getFlightData();
+        Flight newFlightBooking = Flight.builder()
+                .flightNumber(data.getFlightNumber())
+                .airline(data.getAirline())
+                .miles(data.getMiles())
+                .arrivalCityName(data.getArrivalCityName())
+                .departureCityName(data.getDepartureCityName())
+                .departureDate(data.getDepartureDate())
+                .returnDate(data.getReturnDate())
+                .price(0)
+                .passengersList(passengerList)
+                .user(userinfo)
+                .build();
+        Flight savedFlightData =   flightRepository.save(newFlightBooking);
+        System.out.println("User miles info while booking flight with miles : "+userinfo.getUserMiles().toString());
+        int total_availbleMiles = userinfo.getUserMiles() !=null
+                ? userinfo.getUserMiles().getMilesRemaining()
+                : 0;
+
+        if(savedFlightData != null){
+            //addd miles to user miles after booking a flight
+            int flightbookingMiles = passengerList.size() * 15000;
+            int usermilesID = userinfo.getUserMiles().getId();
+            UserMiles userMiles = userMilesRepository.findAll().stream()
+                    .filter(miles-> miles.getId() == usermilesID)
+                    .findFirst().get();
+            System.out.println("user miles using filter by id "+userMiles.toString());
+            userMiles.setMilesRemaining(total_availbleMiles - data.getMiles());
+            userMiles.setMilesRedeemed(userMiles.getMilesRedeemed() + data.getMiles());
+            userMiles.setMilesEarned(flightbookingMiles + userMiles.getMilesEarned());
+//            userMiles.setMilesRemaining(userMiles.getMilesEarned()-flightbookingMiles);
+
+            userinfo.setUserMiles(userMiles);
+            User updatedUser = userRepository.save(userinfo);
+            System.out.println("Updated user with miles infomartion : "+updatedUser.toString());
+        }
+        System.out.println("saved flight data : "+savedFlightData.toString());
+        return savedFlightData;
+    }
+
     @PostMapping("/bookflight/{id}")
     Flight addFlight(@RequestBody FlightDto newBooking, @PathVariable Long id){
 
@@ -45,7 +96,7 @@ public class FlightController {
         Flight newFlightBooking = Flight.builder()
                 .flightNumber(data.getFlightNumber())
                 .airline(data.getAirline())
-                .miles(data.getMiles())
+                .miles(0)
                 .arrivalCityName(data.getArrivalCityName())
                 .departureCityName(data.getDepartureCityName())
                 .departureDate(data.getDepartureDate())
