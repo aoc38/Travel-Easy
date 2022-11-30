@@ -2,9 +2,7 @@ package com.traveleasy.fullstackbackend.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -24,6 +22,9 @@ public class Hotel {
     private int roomsCount;
     private int guestsCount;
     private int roomPrice;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
 
 
 }

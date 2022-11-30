@@ -6,6 +6,7 @@ import com.traveleasy.fullstackbackend.exception.NotFoundException;
 import com.traveleasy.fullstackbackend.model.Card;
 import com.traveleasy.fullstackbackend.model.CardType;
 import com.traveleasy.fullstackbackend.model.User;
+import com.traveleasy.fullstackbackend.model.UserMiles;
 import com.traveleasy.fullstackbackend.repository.CardRepository;
 import com.traveleasy.fullstackbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,12 @@ public class UserController {
         //creating a list for card and adding card data from dto
         List<Card> cardsList = new ArrayList<>();
         cardsList.add(cardData);
-
+        //creating usermiles
+        UserMiles userMilesObj = UserMiles.builder()
+                .milesRemaining(0)
+                .milesEarned(0)
+                .milesRedeemed(0)
+                .build();
         //creating userobject
         User userData = User.builder()
                 .email(newUser.getEmail())
@@ -62,6 +68,7 @@ public class UserController {
                 .middleName(newUser.getMiddleName())
                 .lastName(newUser.getLastName())
                 .cards(cardsList)
+                .userMiles(userMilesObj)
                 .build();
         //save user data to DB
         User createdUserData = userRepository.save(userData);

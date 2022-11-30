@@ -5,13 +5,16 @@ import com.traveleasy.fullstackbackend.exception.NotFoundException;
 import com.traveleasy.fullstackbackend.model.Flight;
 import com.traveleasy.fullstackbackend.model.Passenger;
 import com.traveleasy.fullstackbackend.model.User;
+import com.traveleasy.fullstackbackend.model.UserMiles;
 import com.traveleasy.fullstackbackend.repository.FlightRepository;
+import com.traveleasy.fullstackbackend.repository.UserMilesRepository;
 import com.traveleasy.fullstackbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.traveleasy.fullstackbackend.controller.UserController.USER;
 
@@ -23,6 +26,9 @@ public class FlightController {
     private FlightRepository flightRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserMilesRepository userMilesRepository;
 
     @PostMapping("/bookflight/{id}")
     Flight addFlight(@RequestBody FlightDto newBooking, @PathVariable Long id){
@@ -49,6 +55,50 @@ public class FlightController {
                 .user(userinfo)
                 .build();
         Flight savedFlightData =   flightRepository.save(newFlightBooking);
+        //get all milesdata for that user
+//        System.out.println("Miles Data : "+userMilesRepository.findAll().size());
+//        userMilesRepository.findAll().stream()
+//                .forEach(e->System.out.println(e.toString()));
+        System.out.println("User miles info while booking flight : "+userinfo.getUserMiles().toString());
+        int total_availbleMiles = userinfo.getUserMiles() !=null
+                ? userinfo.getUserMiles().getMilesRemaining()
+                : 0;
+
+//        userRepository.
+
+//        List<UserMiles> userMilesList = userMilesRepository.findAll().stream()
+//                .filter(miles-> miles.getUser().getId() == id)
+//                .collect(Collectors.toList());
+
+        //get toal miles remaining for that user
+//         int total_availbleMiles = userMilesList.size() > 0 ?userMilesList.stream()
+//                .map(userMiles -> userMiles.getMilesRemaining())
+//                .mapToInt(Integer::intValue)
+//                .sum()
+//                 : 0;
+
+        if(savedFlightData != null){
+            //addd miles to user miles after booking a flight
+            int flightbookingMiles = passengerList.size() * 15000;
+            int usermilesID = userinfo.getUserMiles().getId();
+            UserMiles userMiles = userMilesRepository.findAll().stream()
+                .filter(miles-> miles.getId() == usermilesID)
+                        .findFirst().get();
+            System.out.println("user miles using filter by id "+userMiles.toString());
+            userMiles.setMilesRemaining(total_availbleMiles +flightbookingMiles);
+            userMiles.setMilesEarned(flightbookingMiles + userMiles.getMilesEarned());
+
+
+//                    UserMiles.builder()
+//                    .milesEarned(prebookingMiles)
+//                    .milesRemaining(total_availbleMiles +prebookingMiles)
+//                    .build();
+//            userMilesRepository.save(userMiles);
+            userinfo.setUserMiles(userMiles);
+            User updatedUser = userRepository.save(userinfo);
+            System.out.println("Updated user with miles infomartion : "+updatedUser.toString());
+        }
+
         System.out.println("saved flight data : "+savedFlightData.toString());
         return savedFlightData;
     }
