@@ -11,17 +11,20 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Hotel {
 
     @Id
     @GeneratedValue
     private Long id;
     private String destination;
-    private Date checkInDate;
-    private Date checkOutDate;
-    private int roomsCount;
-    private int guestsCount;
-    private int roomPrice;
+    private Date checkindate;
+    private Date checkoutdate;
+    private int roomcount;
+    private int guestcount;
+    private int totalprice;
+    private String hotelname;
+    private String hotelid;
 
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
