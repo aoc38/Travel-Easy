@@ -48,21 +48,21 @@ public class BookingController {
             deals = deals.stream()
                     .filter(deal -> deal.getUser().getId()==id)
                     .collect(Collectors.toList());
-            System.out.println(deals.get(0).toString());
+//            System.out.println(deals.get(0).toString());
             response.setDeals(deals);
         }
         if(flights != null && flights.size() > 0){
             flights = flights.stream()
                     .filter(flight -> flight.getUser().getId() == id)
                     .collect(Collectors.toList());
-            System.out.println(flights.get(0).toString());
+//            System.out.println(flights.get(0).toString());
             response.setFlights(flights);
         }
         if(hotels != null && hotels.size() > 0){
             hotels = hotels.stream()
                     .filter(hotel -> hotel.getUser().getId() == id)
                     .collect(Collectors.toList());
-            System.out.println(hotels.get(0).toString());
+//            System.out.println(hotels.get(0).toString());
             response.setHotels(hotels);
         }
         return response;
